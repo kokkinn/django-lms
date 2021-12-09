@@ -22,4 +22,4 @@ class Students(models.Model):
                           age=fake.pyint(12, 100))
             st.save()
 
-        return f'{countt} students were generated'
+        return f'{countt} students were generatedd'
