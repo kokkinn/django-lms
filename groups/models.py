@@ -10,5 +10,3 @@ class Groups(models.Model):
 
     def __str__(self):
         return f"{self.course} {self.letter} {self.fullname} {self.number_of_students} {self.name_of_teacher}"
-
-
