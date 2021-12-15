@@ -1,10 +1,12 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
 
 from students.models import Students
 
 from webargs import fields
 from webargs.djangoparser import use_args
 
+from .forms import StudentCreateForm
 from .utils import format_records
 
 
@@ -31,6 +33,25 @@ def get_students(request, args):
                     <input type="submit" value="Submit">
                 </form>
             """
-    studentz = format_records(students)
-    response = html_form + studentz
+    student = format_records(students)
+    response = html_form + student
     return HttpResponse(response)
+
+
+@csrf_exempt
+def create_student(request):
+    if request.method == 'GET':
+        form = StudentCreateForm()
+    elif request.method == 'POST':
+        form = StudentCreateForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/students')
+
+    html_form = f"""
+                <form method="post">
+                    {form.as_p()}
+                    <input type="submit" value="Submit">
+                </form>
+            """
+    return HttpResponse(html_form)
