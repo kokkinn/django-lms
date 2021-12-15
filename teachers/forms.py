@@ -1,6 +1,7 @@
+from core.normalizators import normalize_phone
+
 from django import forms
 
-from core.normalizators import normalize_phone
 from .models import Teacher
 
 

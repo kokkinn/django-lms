@@ -9,12 +9,11 @@ from webargs import fields
 from webargs.djangoparser import use_args
 
 
-@use_args({'course': fields.Int(required=False),
-           'letter': fields.Str(required=False),
-           'number_of_students': fields.Int(required=False),
-           'fullname': fields.Str(required=False),
-           'name_of_teacher': fields.Str(required=False),
-           }, location='query')
+@use_args({
+            'name': fields.Str(required=False),
+            # 'sta': fields.Str(required=False),
+            # 'number_of_students': fields.Int(required=False),
+        }, location='query')
 def get_groups(request, args):
     groups = Groups.objects.all()
     for key, value in args.items():
@@ -22,16 +21,8 @@ def get_groups(request, args):
             groups = groups.filter(**{key: value})
     html_form = """
                     <form method="get">
-                    <label for="course">Course:</label>
-                    <input type="text" id="course" name="course"></br></br>
-                    <label for="letter">Letter:</label>
-                    <input type="text" id="letter" name="letter"></br></br>
-                    <label for="fullname">Fullname:</label>
-                    <input type="text" id="fullname" name="fullname"></br></br>
-                    <label for="numofst">Number of students:</label>
-                    <input type="number" name="number_of_students"></br></br>
-                    <label for="nameoftech">Name of teacher:</label>
-                    <input type="text" id="nameoftech" name="name_of_teacher"></br></br>
+                    <label for="name">Name of group:</label>
+                    <input type="text" id="name" name="name"></br></br>
                     <input type="submit" value="Submit"></form>             
                      """
     groups = format_records(groups)
@@ -40,7 +31,7 @@ def get_groups(request, args):
 
 
 @csrf_exempt
-def Group_Create(request):
+def group_create(request):
     if request.method == 'GET':
         form = GroupCreateForm()
     elif request.method == 'POST':

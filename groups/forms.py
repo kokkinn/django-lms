@@ -1,6 +1,5 @@
 from django import forms
 
-from core.normalizators import normalize_phone
 from .models import Groups
 
 
@@ -12,6 +11,3 @@ class GroupCreateForm(forms.ModelForm):
             'start_date': forms.DateInput(attrs={'type': 'date'}),
             'end_date': forms.DateInput(attrs={'type': 'date'})
         }
-
-
-

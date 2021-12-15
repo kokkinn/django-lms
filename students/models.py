@@ -1,6 +1,7 @@
 import datetime
 
 from dateutil.relativedelta import relativedelta
+
 from django.core.validators import MinLengthValidator
 from django.db import models
 
@@ -16,7 +17,7 @@ class Students(models.Model):
     birthday = models.DateField(default=datetime.date.today, validators=[adult_validation])
 
     def __str__(self):
-        return f"{self.first_name} {self.second_name} {self.age}"
+        return f"{self.first_name} {self.second_name} {self.age} {self.phone_number}"
 
     def save(self, *args, **kwargs):
         self.age = relativedelta(datetime.date.today(), self.birthday).years
