@@ -1,0 +1,17 @@
+{% extends 'students/base.html' %}
+
+{% block title %}
+    Students create
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Create">
+    </form>
+
+    {% for student in students %}
+    <a href="update/{{student.id}}/" > Edit</a>&nbsp;&nbsp;{{student}}<br>
+    {% endfor %}
+{% endblock %}

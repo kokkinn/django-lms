@@ -7,6 +7,7 @@ from django.db import models
 
 from .validators import adult_validation
 from .validators import phone_number_validator
+from .validators import AdultValidator
 
 
 class Students(models.Model):
@@ -14,7 +15,7 @@ class Students(models.Model):
     second_name = models.CharField(max_length=50, validators=[MinLengthValidator(2)])
     age = models.IntegerField()
     phone_number = models.CharField(max_length=13, validators=[phone_number_validator])
-    birthday = models.DateField(default=datetime.date.today, validators=[adult_validation])
+    birthday = models.DateField(default=datetime.date.today, validators=[AdultValidator(29)])
 
     def __str__(self):
         return f"{self.first_name} {self.second_name} {self.age} {self.phone_number}"

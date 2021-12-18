@@ -20,16 +20,19 @@ from django.urls import path
 
 from groups.views import get_groups, group_create
 
-from students.views import create_student, get_students
+from students.views import create_student, get_students, update_student, home
 
 from teachers.views import create_teacher, get_teachers
 
 urlpatterns = [
+    path('', home),
     path('students/', get_students),
+    path('students/create/', create_student, name="create_student"),
+    path('students/update/<int:pk>/', update_student, name="update_student"),
     path('groups/', get_groups),
     path('groups/create/', group_create),
     path('teachers', get_teachers),
     # path('__debug__/', include(debug_toolbar.urls)),
-    path('students/create/', create_student, name="create_student"),
+
     path('teachers/create/', create_teacher, name="create_teacher")
 ]
