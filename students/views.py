@@ -8,14 +8,6 @@ from webargs import fields
 from webargs.djangoparser import use_args
 
 from .forms import StudentCreateForm
-from .utils import format_records
-
-
-# def generate_students(request):
-#     return HttpResponse(Students.generate_students(request))
-
-def home(request):
-    return HttpResponse('<h1>HI!!!!!!!</h1>')
 
 
 @use_args({'first_name': fields.Str(required=False),
@@ -27,19 +19,6 @@ def get_students(request, args):
     for key, value in args.items():
         if value:
             students = students.filter(**{key: value})
-    # html_form = """
-    #             <form method="get">
-    #                 <label for="fname">First name:</label>
-    #                 <input type="text" id="fname" name="first_name"></br></br>
-    #                 <label for="lname">Last name:</label>
-    #                 <input type="text" id="lname" name="second_name"></br></br>
-    #                 <label for="age">Age:</label>
-    #                 <input type="number" name="age"></br></br>
-    #                 <input type="submit" value="Search">
-    #             </form>
-    #         """
-    # student = format_records(students)
-    # response = html_form + student
     return render(
         request=request,
         template_name='students/list.html',
@@ -47,7 +26,6 @@ def get_students(request, args):
     )
 
 
-# @csrf_exempt
 def create_student(request):
     if request.method == 'GET':
         form = StudentCreateForm()
@@ -56,13 +34,6 @@ def create_student(request):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/students')
-
-    # html_form = f"""
-    #             <form method="post">
-    #                 {form.as_p()}
-    #                 <input type="submit" value="Create">
-    #             </form>
-    #         """
     return render(
         request=request,
         template_name='students/create.html',
@@ -70,7 +41,6 @@ def create_student(request):
     )
 
 
-@csrf_exempt
 def update_student(request, pk):
     student = Students.objects.get(id=pk)
     if request.method == 'GET':
@@ -80,11 +50,8 @@ def update_student(request, pk):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/students')
-
-    html_form = f"""
-                <form method="post">
-                    {form.as_p()}
-                    <input type="submit" value="Update">
-                </form>
-            """
-    return HttpResponse(html_form)
+    return render(
+        request=request,
+        template_name='students/update.html',
+        context={'form': form}
+    )

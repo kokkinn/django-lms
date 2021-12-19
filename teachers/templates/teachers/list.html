@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Student list
+    Teachers list
 {% endblock %}
 
 {% block content %}
@@ -12,10 +12,13 @@
         <input type="text" id="lname" name="second_name"><br><br>
         <label for="age">Age:</label>
         <input type="number" name="age"><br><br>
-        <input type="submit" value="Search"><br><br>
+        <label for="spec">Specialization:</label>
+        <input type="text" id="spec" name="specialization"><br><br>
+        <input type="submit" value="Submit">
+        <br><br>
     </form>
 
-    {% for student in students %}
-    <a href="update/{{student.id}}/" > Edit</a>&nbsp;&nbsp;{{student}}<br>
+    {% for teacher in teachers %}
+    <a href="update/{{teacher.id}}/" > Edit</a>&nbsp;&nbsp;{{teacher}}<br>
     {% endfor %}
 {% endblock %}
