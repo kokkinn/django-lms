@@ -16,14 +16,14 @@ from webargs.djangoparser import use_args
            'age': fields.Int(required=False),
            'specialization': fields.Str(required=False)}, location='query')
 def get_teachers(request, args):
-    teachers = Teacher.objects.all()
+    teacher = Teacher.objects.all()
     for key, value in args.items():
         if value:
-            teachers = teachers.filter(**{key: value})
+            teacher = teacher.filter(**{key: value})
     return render(
         request=request,
         template_name='teachers/list.html',
-        context={'teachers': teachers}
+        context={'teacher': teacher}
     )
 
 

@@ -5,9 +5,8 @@ from dateutil.relativedelta import relativedelta
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-from .validators import adult_validation
 from .validators import phone_number_validator
-from .validators import AdultValidator
+from core.validators import AdultValidator
 
 
 class Students(models.Model):

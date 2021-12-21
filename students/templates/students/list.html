@@ -3,7 +3,23 @@
 {% block title %}
     Student list
 {% endblock %}
+{% block custom_css %}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+{% endblock %}
 {% block content %}
     <form method="get">
         <label for="fname">First name:</label>
@@ -14,10 +30,31 @@
         <input type="number" name="age"><br><br>
         <input type="submit" value="Search"><br><br>
     </form>
+    <br>
+    <p><strong>Number of students: {{ students.count }}</strong></p>
+    <br>
+    <table>
+        <tr>
+            <th></th>
+            <th>First name</th>
+            <th>Second name </th>
+            <th>Age </th>
+            <th>Phone </th>
+            <th>✎</th>
+            <th>🗑</th>
+        </tr>
+
 
     {% for student in students %}
-    <a href="{% url 'students:update' student.id %}">Edit</a>&nbsp;&nbsp;
-    <a href="{% url 'students:delete' student.id %}">Delete</a>&nbsp;&nbsp;{{student}}
-<br>
+        <tr>
+            <td>{{ forloop.counter}}</td>
+            <td>{{student.first_name}}</td>
+            <td>{{student.second_name}}</td>
+            <td>{{student.age}}</td>
+            <td>{{student.phone_number}}</td>
+            <td><a href="{% url 'students:update' student.id %}">Edit</a></td>
+            <td><a href="{% url 'students:delete' student.id %}">Delete</a></td>
+        </tr>
     {% endfor %}
+    </table>
 {% endblock %}

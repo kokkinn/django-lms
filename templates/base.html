@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>LMS - {% block title %}{% endblock %}</title>
+    <style>{% block custom_css %} {% endblock %}</style>
 </head>
 <body>
     <table>
@@ -16,13 +17,13 @@
         </tr>
 
         <tr>
-            <td><a href = "/teachers/">Teachers list</a></td>
-            <td><a href = "/teachers/create">Teacher creation</a></td>
+            <td><a href = "{% url 'teachers:list'  %}">Teachers list</a></td>
+            <td><a href = "{% url 'teachers:create'  %}">Teacher creation</a></td>
         </tr>
 
         <tr>
-            <td><a href = "/groups/">Groups list</a></td>
-            <td><a href = "/groups/create">Group creation</a></td>
+            <td><a href = "{% url 'groups:list'  %}">Groups list</a></td>
+            <td><a href = "{% url 'groups:create'  %}">Group creation</a></td>
 
         </tr>
     </table>
