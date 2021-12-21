@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LMS - {% block title %}{% endblock %}</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td><a href = "/">Home</a></td>
+        </tr>
+        <tr>
+            <td><a href = "/students/">Students list</a>&emsp;</td>
+            <td><a href = "/students/create">Student creation</a></td>
+
+        </tr>
+
+        <tr>
+            <td><a href = "/teachers/">Teachers list</a></td>
+            <td><a href = "/teachers/create">Teacher creation</a></td>
+        </tr>
+
+        <tr>
+            <td><a href = "/groups/">Groups list</a></td>
+            <td><a href = "/groups/create">Group creation</a></td>
+
+        </tr>
+    </table>
+    <br><br>
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>
