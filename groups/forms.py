@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Groups
+from groups.models import Groups
 
 
 class GroupCreateForm(forms.ModelForm):

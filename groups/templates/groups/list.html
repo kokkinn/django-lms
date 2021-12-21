@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Students list
+{% endblock %}
+
+{% block content %}
+    <form method="get">
+        <label for="name">Name of group:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <input type="submit" value="Submit"><br><br>
+    </form>
+
+    {% for group in groups %}
+    <a href="update/{{group.id}}/" > Edit</a>&nbsp;&nbsp;{{group}}<br>
+    {% endfor %}
+{% endblock %}

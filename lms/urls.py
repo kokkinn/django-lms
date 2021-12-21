@@ -18,18 +18,23 @@ Including another URLconf
 
 from django.urls import path
 
-from groups.views import get_groups, group_create
+from core.views import index
+from groups.views import get_groups, group_create, update_group
 
-from students.views import create_student, get_students
+from students.views import create_student, get_students, update_student
 
-from teachers.views import create_teacher, get_teachers
+from teachers.views import create_teacher, get_teachers, update_teacher
 
 urlpatterns = [
+    path('', index),
     path('students/', get_students),
+    path('students/create/', create_student, name="create_student"),
+    path('students/update/<int:pk>/', update_student, name="update_student"),
     path('groups/', get_groups),
     path('groups/create/', group_create),
-    path('teachers', get_teachers),
-    # path('__debug__/', include(debug_toolbar.urls)),
-    path('students/create/', create_student, name="create_student"),
-    path('teachers/create/', create_teacher, name="create_teacher")
+    path('groups/update/<int:pk>/', update_group, name="update_group"),
+    path('teachers/', get_teachers),
+    path('teachers/create/', create_teacher, name="create_teacher"),
+    path('teachers/update/<int:pk>/', update_teacher, name="update_teacher"),
+    # path('__debug__/', include(debug_toolbar.urls))
 ]
