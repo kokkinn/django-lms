@@ -28,6 +28,8 @@ from teachers.views import create_teacher, get_teachers, update_teacher
 urlpatterns = [
     path('', index),
     path('students/', include('students.urls')),
+    path('teachers/', include('teachers.urls')),
+    path('groups/', include('groups.urls')),
 
 
     path('groups/', get_groups),

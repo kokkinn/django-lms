@@ -12,6 +12,7 @@
     </form>
 
     {% for group in groups %}
-    <a href="update/{{group.id}}/" > Edit</a>&nbsp;&nbsp;{{group}}<br>
+    <a href="update/{{group.id}}/" > Edit</a>&nbsp;&nbsp;
+    <a href="delete/{{group.id}}/" > Delete</a>&nbsp;&nbsp;{{group}}<br>
     {% endfor %}
 {% endblock %}

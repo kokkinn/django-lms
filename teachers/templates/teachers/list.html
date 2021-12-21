@@ -19,6 +19,8 @@
     </form>
 
     {% for teacher in teachers %}
-    <a href="update/{{teacher.id}}/" > Edit</a>&nbsp;&nbsp;{{teacher}}<br>
+    <a href="update/{{teacher.id}}/" > Edit</a>&nbsp;&nbsp;
+    <a href="{% url 'teachers:delete' teacher.id %}">Delete</a>&nbsp;&nbsp;{{teacher}}
+<br>
     {% endfor %}
 {% endblock %}
