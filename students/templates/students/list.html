@@ -16,6 +16,8 @@
     </form>
 
     {% for student in students %}
-    <a href="update/{{student.id}}/" > Edit</a>&nbsp;&nbsp;{{student}}<br>
+    <a href="{% url 'students:update' student.id %}">Edit</a>&nbsp;&nbsp;
+    <a href="{% url 'students:delete' student.id %}">Delete</a>&nbsp;&nbsp;{{student}}
+<br>
     {% endfor %}
 {% endblock %}

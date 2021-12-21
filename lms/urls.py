@@ -16,20 +16,20 @@ Including another URLconf
 
 # import debug_toolbar
 
-from django.urls import path
+from django.urls import path, include
 
 from core.views import index
 from groups.views import get_groups, group_create, update_group
 
-from students.views import create_student, get_students, update_student
+from students.views import create_student, get_students, update_student, delete_student
 
 from teachers.views import create_teacher, get_teachers, update_teacher
 
 urlpatterns = [
     path('', index),
-    path('students/', get_students),
-    path('students/create/', create_student, name="create_student"),
-    path('students/update/<int:pk>/', update_student, name="update_student"),
+    path('students/', include('students.urls')),
+
+
     path('groups/', get_groups),
     path('groups/create/', group_create),
     path('groups/update/<int:pk>/', update_group, name="update_group"),
