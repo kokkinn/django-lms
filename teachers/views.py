@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from teachers.forms import TeacherCreateForm
@@ -15,14 +16,14 @@ from webargs.djangoparser import use_args
            'age': fields.Int(required=False),
            'specialization': fields.Str(required=False)}, location='query')
 def get_teachers(request, args):
-    teachers = Teacher.objects.all()
+    teacher = Teacher.objects.all()
     for key, value in args.items():
         if value:
-            teachers = teachers.filter(**{key: value})
+            teacher = teacher.filter(**{key: value})
     return render(
         request=request,
         template_name='teachers/list.html',
-        context={'teachers': teachers}
+        context={'teacher': teacher}
     )
 
 
@@ -34,7 +35,7 @@ def create_teacher(request):
         form = TeacherCreateForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/teachers')
+            return HttpResponseRedirect(reverse('teachers:list'))
     return render(
         request=request,
         template_name='teachers/create.html',
@@ -50,9 +51,18 @@ def update_teacher(request, pk):
         form = TeacherCreateForm(data=request.POST, instance=teacher)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/teachers')
+            return HttpResponseRedirect(reverse('teachers:list'))
     return render(
         request=request,
         template_name='teachers/update.html',
         context={'form': form}
     )
+
+
+def delete_teacher(request, pk):
+    teacher = get_object_or_404(Teacher, id=pk)
+    if request.method == "POST":
+        teacher.delete()
+        return HttpResponseRedirect(reverse('teachers:list'))
+
+    return render(request, 'teachers/delete.html', {"teacher": teacher})

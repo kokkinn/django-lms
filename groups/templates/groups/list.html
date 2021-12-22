@@ -3,7 +3,23 @@
 {% block title %}
     Students list
 {% endblock %}
+{% block custom_css %}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
 
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+{% endblock %}
 {% block content %}
     <form method="get">
         <label for="name">Name of group:</label>
@@ -11,7 +27,29 @@
         <input type="submit" value="Submit"><br><br>
     </form>
 
+ <br>
+    <p><strong>Number of groups: {{ groups.count }}</strong></p>
+    <br>
+    <table>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>✎</th>
+            <th>🗑</th>
+        </tr>
+
+
     {% for group in groups %}
-    <a href="update/{{group.id}}/" > Edit</a>&nbsp;&nbsp;{{group}}<br>
+        <tr>
+            <td>{{ forloop.counter}}</td>
+            <td>{{group.name}}</td>
+            <td>{{group.start_date}}</td>
+            <td>{{group.end_date}}</td>
+            <td><a href="{% url 'groups:update' group.id %}">Edit</a></td>
+            <td><a href="{% url 'groups:delete' group.id %}">Delete</a></td>
+        </tr>
     {% endfor %}
+    </table>
 {% endblock %}

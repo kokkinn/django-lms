@@ -10,6 +10,3 @@ def normalize_phone(phone):
     if len(phone) != def_ph_len:
         raise ValidationError('Number entered incorrectly')
     return phone
-#
-# phonee = '913929292922'
-# print(normalize_phone(phonee))
