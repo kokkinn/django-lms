@@ -1,3 +1,5 @@
+from django_filters import FilterSet
+
 from core.normalizators import normalize_phone
 
 from django import forms
@@ -25,3 +27,13 @@ class TeacherCreateForm(forms.ModelForm):
     def clean_second_name(self):
         second_name = self.cleaned_data['second_name']
         return self.normalize_name(second_name)
+
+
+class TeachersFilter(FilterSet):
+    class Meta:
+        model = Teacher
+        fields = {
+            "age": ["lt", "gt"],
+            "first_name": ["exact"],
+            "second_name": ["exact", 'startswith']
+        }

@@ -12,15 +12,37 @@
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
         </li>
+
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownStudents" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Students
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownStudents">
             <li><a class="dropdown-item" href="{% url 'students:list' %}">List</a></li>
             <li><a class="dropdown-item" href="{% url 'students:create' %}">Create</a></li>
           </ul>
         </li>
+
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTeachers" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Teachers
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownTeachers">
+            <li><a class="dropdown-item" href="{% url 'teachers:list' %}">List</a></li>
+            <li><a class="dropdown-item" href="{% url 'teachers:create' %}">Create</a></li>
+          </ul>
+        </li>
+
+           <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownGroups" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Groups
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownGroups">
+            <li><a class="dropdown-item" href="{% url 'groups:list' %}">List</a></li>
+            <li><a class="dropdown-item" href="{% url 'groups:create' %}">Create</a></li>
+          </ul>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link disabled">Disabled</a>
         </li>

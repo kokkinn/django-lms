@@ -12,21 +12,13 @@ from .forms import StudentCreateForm
 from .forms import StudentsFilter
 
 
-@use_args({'first_name': fields.Str(required=False),
-           'second_name': fields.Str(required=False),
-           'age': fields.Str(required=False)
-           }, location='query')
-def get_students(request, args):
+def get_students(request):
     students = Students.objects.all()
-    for key, value in args.items():
-        if value:
-            students = students.filter(**{key: value})
-
     filter_students = StudentsFilter(data=request.GET, queryset=students)
     return render(
         request=request,
         template_name='students/list.html',
-        context={'students': students, "filter_students":filter_students}
+        context={'students': students, "filter_students": filter_students}
     )
 
 

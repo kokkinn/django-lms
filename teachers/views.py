@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
-from teachers.forms import TeacherCreateForm
+from teachers.forms import TeacherCreateForm, TeachersFilter
 from teachers.models import Teacher
 from teachers.utils import format_records
 
@@ -11,23 +11,16 @@ from webargs import fields
 from webargs.djangoparser import use_args
 
 
-@use_args({'first_name': fields.Str(required=False),
-           'second_name': fields.Str(required=False),
-           'age': fields.Int(required=False),
-           'specialization': fields.Str(required=False)}, location='query')
-def get_teachers(request, args):
+def get_teachers(request):
     teacher = Teacher.objects.all()
-    for key, value in args.items():
-        if value:
-            teacher = teacher.filter(**{key: value})
+    filter_teachers = TeachersFilter(data=request.GET, queryset=teacher)
     return render(
         request=request,
         template_name='teachers/list.html',
-        context={'teacher': teacher}
+        context={'filter_teachers': filter_teachers}
     )
 
 
-@csrf_exempt
 def create_teacher(request):
     if request.method == 'GET':
         form = TeacherCreateForm()
