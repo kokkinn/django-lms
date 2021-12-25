@@ -22,7 +22,7 @@ from core.views import index
 
 
 urlpatterns = [
-    path('', index),
+    path('', index, name='index'),
     path('students/', include('students.urls')),
     path('teachers/', include('teachers.urls')),
     path('groups/', include('groups.urls')),

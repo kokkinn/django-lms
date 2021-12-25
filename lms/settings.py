@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'teachers',
     'django_extensions',
     'students',
-
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -109,6 +111,8 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
+USE_L10N = False
+
 USE_I18N = True
 
 USE_TZ = True
@@ -128,3 +132,10 @@ SHELL_PLUS = 'ipython'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+DATE_FORMAT = "d-m-Y"
