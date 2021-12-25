@@ -1,37 +1,15 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
     Teachers list
 {% endblock %}
 
-{% block custom_css %}
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-{% endblock %}
 {% block content %}
     <form method="get">
-        <label for="fname">First name:</label>
-        <input type="text" id="fname" name="first_name"><br><br>
-        <label for="lname">Last name:</label>
-        <input type="text" id="lname" name="second_name"><br><br>
-        <label for="age">Age:</label>
-        <input type="number" name="age"><br><br>
-        <label for="spec">Specialization:</label>
-        <input type="text" id="spec" name="specialization"><br><br>
-        <input type="submit" value="Submit">
+        {{ filter_students.form | crispy}}
+        <input class="btn btn-outline-primary" type="submit" value="Submit">
         <br><br>
     </form>
 <br>
@@ -44,8 +22,8 @@ tr:nth-child(even) {
             <th>Second name </th>
             <th>Age </th>
             <th>Specialization </th>
-            <th>✎</th>
-            <th>🗑</th>
+            <th><i class="bi bi-pencil-square"></i></th>
+            <th><i class="bi bi-trash"></i></th>
         </tr>
     {% for teacher in teacher %}
         <tr>

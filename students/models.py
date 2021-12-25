@@ -15,6 +15,8 @@ class Students(models.Model):
     age = models.IntegerField()
     phone_number = models.CharField(max_length=13, validators=[phone_number_validator])
     birthday = models.DateField(default=datetime.date.today, validators=[AdultValidator(29)])
+    enroll_date = models.DateField(default=datetime.date.today)
+    graduate_date = models.DateField(default=datetime.date.today)
 
     def __str__(self):
         return f"{self.first_name} {self.second_name} {self.age} {self.phone_number}"
@@ -23,6 +25,8 @@ class Students(models.Model):
         self.age = relativedelta(datetime.date.today(), self.birthday).years
         super().save(*args, **kwargs)
 
+
+    #
     # @staticmethod
     # def generate_students(request):
     #     fake = Faker()
