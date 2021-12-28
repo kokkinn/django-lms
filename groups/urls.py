@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import get_groups, group_create, update_group, delete_group
+from .views import delete_group, get_groups, group_create, update_group
 
 app_name = 'groups'
 urlpatterns = [

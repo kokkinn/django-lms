@@ -1,12 +1,15 @@
 import datetime
 
+from core.validators import AdultValidator
+
 from dateutil.relativedelta import relativedelta
 
 from django.core.validators import MinLengthValidator
 from django.db import models
 
+from groups.models import Groups
+
 from .validators import phone_number_validator
-from core.validators import AdultValidator
 
 
 class Students(models.Model):
@@ -16,7 +19,15 @@ class Students(models.Model):
     phone_number = models.CharField(max_length=13, validators=[phone_number_validator])
     birthday = models.DateField(default=datetime.date.today, validators=[AdultValidator(29)])
     enroll_date = models.DateField(default=datetime.date.today)
+
     graduate_date = models.DateField(default=datetime.date.today)
+
+    group = models.ForeignKey(
+        Groups,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="students"
+    )
 
     def __str__(self):
         return f"{self.first_name} {self.second_name} {self.age} {self.phone_number}"
@@ -24,7 +35,6 @@ class Students(models.Model):
     def save(self, *args, **kwargs):
         self.age = relativedelta(datetime.date.today(), self.birthday).years
         super().save(*args, **kwargs)
-
 
     #
     # @staticmethod

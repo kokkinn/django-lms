@@ -12,7 +12,6 @@ def adult_validation(birthday, age_limit=18):
         raise ValidationError(f"Age should be greater than {age_limit}")
 
 
-
 def phone_number_validator(phone_number):
     if students.models.Students.objects.filter(phone_number=phone_number).exists():
         raise ValidationError(f"The phone number {phone_number} is already registeredd")
@@ -28,6 +27,6 @@ class AdultValidator:
 
     def __eq__(self, other):
         return (
-            isinstance(other, self.__class__) and
-            self.age_limit == other.age_limit
+                isinstance(other, self.__class__) and
+                self.age_limit == other.age_limit
         )

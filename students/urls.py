@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import create_student, get_students, update_student, delete_student
+from .views import create_student, delete_student, get_students, update_student
 
 app_name = 'students'
 urlpatterns = [
