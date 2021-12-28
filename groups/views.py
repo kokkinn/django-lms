@@ -1,26 +1,18 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
 
-from groups.forms import GroupCreateForm
+from groups.forms import GroupCreateForm, GroupsFilter
 from groups.models import Groups
-from groups.utils import format_records
-
-from webargs import fields
-from webargs.djangoparser import use_args
 
 
-@use_args({'name': fields.Str(required=False)}, location='query')
-def get_groups(request, args):
+def get_groups(request):
     groups = Groups.objects.all()
-    for key, value in args.items():
-        if value:
-            groups = groups.filter(**{key: value})
+    filter_groups = GroupsFilter(data=request.GET, queryset=groups)
     return render(
         request=request,
         template_name='groups/list.html',
-        context={'groups': groups}
+        context={"filter_groups": filter_groups}
     )
 
 
@@ -52,7 +44,7 @@ def update_group(request, pk):
     return render(
         request=request,
         template_name='groups/update.html',
-        context={'form': form}
+        context={'form': form, "group": group}
     )
 
 

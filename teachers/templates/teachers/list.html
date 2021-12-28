@@ -7,34 +7,15 @@
 {% endblock %}
 
 {% block content %}
-    <form method="get">
-        {{ filter_students.form | crispy}}
-        <input class="btn btn-outline-primary" type="submit" value="Submit">
-        <br><br>
-    </form>
-<br>
-    <p><strong>Number of teachers: {{ teacher.count }}</strong></p>
+
+    {% include "includes/teachers_search_accordion.html" %}
+
     <br>
-    <table>
-        <tr>
-            <th></th>
-            <th>First name</th>
-            <th>Second name </th>
-            <th>Age </th>
-            <th>Specialization </th>
-            <th><i class="bi bi-pencil-square"></i></th>
-            <th><i class="bi bi-trash"></i></th>
-        </tr>
-    {% for teacher in teacher %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{teacher.first_name}}</td>
-            <td>{{teacher.second_name}}</td>
-            <td>{{teacher.age}}</td>
-            <td>{{teacher.specialization}}</td>
-            <td><a href="{% url 'teachers:update' teacher.id %}">Edit</a></td>
-            <td><a href="{% url 'teachers:delete' teacher.id %}">Delete</a></td>
-        </tr>
-    {% endfor %}
-    </table>
+    <p><strong>Number of teachers: {{ filter_teachers.qs.count }}</strong></p>
+    <br>
+
+    {% with list_object=filter_teachers.qs %}
+        {% include "includes/teachers_list_table.html" %}
+    {% endwith %}
+
 {% endblock %}

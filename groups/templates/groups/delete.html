@@ -8,7 +8,7 @@
     <form method="post">
         {% csrf_token %}
         <p>Do your really want to remove {{group.name}}</p>
-        <input type="submit" value="Agree">
-        <a href="{% url 'groups:list' %}">Cancel</a>&nbsp;&nbsp;
+        <input class="btn btn-outline-success" type="submit" value="Delete">
+        <a class="btn btn-outline-danger" href="{% url 'groups:list' %}">Cancel</a>&nbsp;&nbsp;
     </form>
 {% endblock %}
