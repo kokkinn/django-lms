@@ -12,4 +12,7 @@
         <a class="btn btn-outline-primary" href="{% url 'groups:list' %}">Cancel</a>&nbsp;&nbsp;
     </form>
 
+    {% with list_object=group.students.all %}
+        {% include "includes/students_list_table.html" %}
+    {% endwith %}
 {% endblock %}

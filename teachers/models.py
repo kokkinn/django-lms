@@ -1,6 +1,8 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
 
+from groups.models import Groups
+
 from teachers.validators import phone_number_validator
 
 
@@ -14,6 +16,13 @@ class Teacher(models.Model):
         blank=True,
         null=True,
         validators=[phone_number_validator]
+    )
+
+    group = models.ForeignKey(
+        Groups,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='teachers'
     )
 
     def __str__(self):

@@ -1,8 +1,8 @@
-from django_filters import FilterSet
-
 from core.normalizators import normalize_phone
 
 from django import forms
+
+from django_filters import FilterSet
 
 from .models import Students
 
@@ -11,7 +11,7 @@ class StudentCreateForm(forms.ModelForm):
     class Meta:
         model = Students
         fields = ['first_name', 'second_name',
-                  'birthday', 'phone_number']
+                  'birthday', 'phone_number', "group"]
         widgets = {
             'birthday': forms.DateInput(attrs={'type': 'date'})
         }
@@ -39,5 +39,6 @@ class StudentsFilter(FilterSet):
         fields = {
             "age": ["lt", "gt"],
             "first_name": ["exact"],
-            "second_name": ["exact", 'startswith']
+            "second_name": ["exact", 'startswith'],
+            "group": ['exact']
         }
