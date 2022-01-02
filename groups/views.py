@@ -44,7 +44,7 @@ def update_group(request, pk):
     return render(
         request=request,
         template_name='groups/update.html',
-        context={'form': form, "group": group}
+        context={'form': form, "group": group, "students": group.students.prefetch_related("headman_group")}
     )
 
 

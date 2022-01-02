@@ -2,6 +2,9 @@ import datetime
 
 from django.db import models
 
+# from students.models import Students
+from teachers.models import Teacher
+
 
 class Groups(models.Model):
     name = models.CharField(max_length=50)
@@ -11,5 +14,17 @@ class Groups(models.Model):
     create_datetime = models.DateTimeField(auto_now_add=True)
     update_datetime = models.DateTimeField(auto_now=True)
 
+    headman = models.OneToOneField(
+        "students.Students",
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="headman_group"
+    )
+
+    teachers = models.ManyToManyField(
+        to="teachers.Teacher",
+        related_name='groups'
+    )
+
     def __str__(self):
-        return f"{self.name} {self.start_date} {self.end_date}"
+        return f"{self.name} {self.start_date}"

@@ -9,7 +9,7 @@ from .forms import StudentsFilter
 
 
 def get_students(request):
-    students = Students.objects.all()
+    students = Students.objects.all().select_related("group", "headman_group")
     filter_students = StudentsFilter(data=request.GET, queryset=students)
     return render(
         request=request,

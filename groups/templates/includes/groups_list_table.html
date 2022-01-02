@@ -6,7 +6,7 @@
             <th>Name</th>
             <th>Start date</th>
             <th>End date</th>
-            <th>Teachers</th>
+<!--            <th>Teachers</th>-->
             <th><i class="bi bi-pencil-square"></i></th>
             <th><i class="bi bi-trash"></i></th>
         </tr>
@@ -16,7 +16,7 @@
             <td>{{group.name}}</td>
             <td>{{group.start_date}}</td>
             <td>{{group.end_date}}</td>
-            <td>{% for teacher in group.teachers.all.qs %} {{ teacher }}{% endfor %}</td>
+<!--            <td>{% for teacher in group.teachers.all %} {{ teacher }}{% endfor %}</td>-->
             <td><a href="{% url 'groups:update' group.id %}">Edit</a></td>
             <td><a href="{% url 'groups:delete' group.id %}">Delete</a></td>
         </tr>

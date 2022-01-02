@@ -10,7 +10,7 @@ from .models import Teacher
 class TeacherCreateForm(forms.ModelForm):
     class Meta:
         model = Teacher
-        fields = ['first_name', 'second_name', 'age', 'specialization', 'phone_number', 'group']
+        fields = "__all__"
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
@@ -35,6 +35,6 @@ class TeachersFilter(FilterSet):
         fields = {
             "first_name": ["exact"],
             "second_name": ["exact"],
-            "age": ["exact"],
-            "group": ["exact"]
+            "birthday": ["exact"],
+            # "group": ["exact"]
         }
