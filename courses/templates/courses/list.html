@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Courses list
+{% endblock %}
+
+{% block content %}
+
+    {% include "includes/courses_search_accordion.html" %}
+
+    <br>
+    <p><strong>Number of courses: {{ filter_courses.qs.count }}</strong></p>
+    <br>
+
+    {% with list_object=filter_courses.qs %}
+        {% include "includes/courses_list_table.html" %}
+    {% endwith %}
+
+{% endblock %}
