@@ -1,0 +1,20 @@
+ <table class="table table-striped table-hover">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Start date</th>
+            <th><i class="bi bi-pencil-square"></i></th>
+            <th><i class="bi bi-trash"></i></th>
+        </tr>
+
+
+    {% for course in list_object %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{course.course_name}}</td>
+            <td>{{course.start_date}}</td>
+            <td><a href="{% url 'courses:update' course.id %}">Edit</a></td>
+            <td><a href="{% url 'courses:delete' course.id %}">Delete</a></td>
+        </tr>
+    {% endfor %}
+    </table>

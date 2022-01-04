@@ -3,7 +3,7 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
 
-import students.models
+# import students.models
 
 
 def adult_validation(birthday, age_limit=18):
@@ -13,7 +13,7 @@ def adult_validation(birthday, age_limit=18):
 
 
 def phone_number_validator(phone_number):
-    if students.models.Students.objects.filter(phone_number=phone_number).exists():
+    if "students.Students".objects.filter(phone_number=phone_number).exists():
         raise ValidationError(f"The phone number {phone_number} is already registeredd")
 
 

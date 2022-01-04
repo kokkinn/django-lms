@@ -1,4 +1,4 @@
-<table class="table table-striped table-hover">
+ <table class="table table-striped table-hover">
         <tr>
             <th></th>
             <th>First name</th>
@@ -8,6 +8,7 @@
             <th>Enroll date </th>
             <th>Graduate date </th>
             <th>Group</th>
+            <th>Headman</th>
             <th><i class="bi bi-pencil-square"></i></th>
             <th><i class="bi bi-trash"></i></th>
         </tr>
@@ -23,6 +24,7 @@
             <td>{{student.enroll_date}}</td>
             <td>{{student.graduate_date}}</td>
             <td>{% if student.group is not None %}{{ student.group }} {% endif %}</td>
+            <td>{% if student.headman_group %}<i class="bi bi-check-lg"></i>{% endif %}</td>
             <td><a href="{% url 'students:update' student.id %}">Edit</a></td>
             <td><a href="{% url 'students:delete' student.id %}">Delete</a></td>
         </tr>
