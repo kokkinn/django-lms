@@ -38,3 +38,10 @@ class TeachersFilter(FilterSet):
             "birthday": ["exact"],
             # "group": ["exact"]
         }
+
+
+class TeacherUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Teacher
+        fields = "__all__"
+        # exclude = ['enroll_date', 'graduate_date']

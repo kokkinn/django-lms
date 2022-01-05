@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import UpdateView, ListView, DeleteView
+from django.views.generic import UpdateView, ListView, DeleteView, CreateView
 
 from core.views import UpdateBaseView
 from students.models import Students
@@ -92,4 +92,10 @@ class StudentsListView(ListView):
 class StudentDeleteView(DeleteView):
     model = Students
     success_url = reverse_lazy('students:list')
-    template_name = 'students/update.html'
+
+
+class StudentCreateView(CreateView):
+    model = Students
+    form_class = StudentCreateForm
+    success_url = reverse_lazy("students:list")
+    template_name = 'students/create.html'

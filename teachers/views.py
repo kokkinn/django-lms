@@ -1,8 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 
-from teachers.forms import TeacherCreateForm, TeachersFilter
+from teachers.forms import TeacherCreateForm, TeachersFilter, TeacherUpdateForm
 from teachers.models import Teacher
 
 
@@ -54,3 +55,35 @@ def delete_teacher(request, pk):
         return HttpResponseRedirect(reverse('teachers:list'))
 
     return render(request, 'teachers/groups_confirm_delete.html', {"teacher": teacher})
+
+
+class TeacherUpdateView(UpdateView):
+    model = Teacher
+    form_class = TeacherUpdateForm
+    success_url = reverse_lazy('teachers:list')
+    template_name = 'teachers/update.html'
+
+
+class TeachersListView(ListView):
+    model = Teacher
+    template_name = "teachers/list.html"
+
+    def get_queryset(self):
+        filter_teachers = TeachersFilter(
+            data=self.request.GET,
+            queryset=self.model.objects.all())
+        # .select_related("group", "headman_group"))
+
+        return filter_teachers
+
+
+class TeacherDeleteView(DeleteView):
+    model = Teacher
+    success_url = reverse_lazy('teachers:list')
+
+
+class TeacherCreateView(CreateView):
+    model = Teacher
+    form_class = TeacherCreateForm
+    success_url = reverse_lazy("teachers:list")
+    template_name = 'teachers/create.html'
