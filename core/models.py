@@ -5,7 +5,7 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from faker import Faker
 
-from core.validators import AdultValidator, phone_number_validator
+from core.validators import AdultValidator
 
 
 class Person(models.Model):
@@ -14,7 +14,7 @@ class Person(models.Model):
     first_name = models.CharField(max_length=50, validators=[MinLengthValidator(2)])
     second_name = models.CharField(max_length=50, validators=[MinLengthValidator(2)])
     age = models.IntegerField()
-    phone_number = models.CharField(max_length=13, validators=[phone_number_validator])
+    phone_number = models.CharField(max_length=13)
     birthday = models.DateField(default=datetime.date.today, validators=[AdultValidator(29)])
 
     def __str__(self):

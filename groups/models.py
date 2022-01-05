@@ -3,7 +3,7 @@ import datetime
 from django.db import models
 
 # from students.models import Students
-from teachers.models import Teacher
+# from teachers.models import Teacher
 
 
 class Groups(models.Model):

@@ -1,10 +1,12 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import UpdateView, ListView, DeleteView
 
+from core.views import UpdateBaseView
 from students.models import Students
 
-from .forms import StudentCreateForm
+from .forms import StudentCreateForm, StudentUpdateForm
 from .forms import StudentsFilter
 
 
@@ -55,4 +57,39 @@ def delete_student(request, pk):
         student.delete()
         return HttpResponseRedirect(reverse('students:list'))
 
-    return render(request, 'students/delete.html', {"student": student})
+    return render(request, 'students/groups_confirm_delete.html', {"student": student})
+
+
+"Ниже реализация Class Based View вручную"
+
+
+class UpdateStudentView(UpdateBaseView):
+    model = Students
+    form_class = StudentUpdateForm
+    success_url = 'students:list'
+    template_name = 'students/update.html'
+
+
+class StudentUpdateView(UpdateView):
+    model = Students
+    form_class = StudentUpdateForm
+    success_url = reverse_lazy('students:list')
+    template_name = 'students/update.html'
+
+
+class StudentsListView(ListView):
+    model = Students
+    template_name = "students/list.html"
+
+    def get_queryset(self):
+        filter_students = StudentsFilter(
+            data=self.request.GET,
+            queryset=self.model.objects.all().select_related("group", "headman_group"))
+
+        return filter_students
+
+
+class StudentDeleteView(DeleteView):
+    model = Students
+    success_url = reverse_lazy('students:list')
+    template_name = 'students/update.html'

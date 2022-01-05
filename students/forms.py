@@ -10,8 +10,7 @@ from .models import Students
 class StudentCreateForm(forms.ModelForm):
     class Meta:
         model = Students
-        fields = ['first_name', 'second_name',
-                  'birthday', 'phone_number', "group"]
+        fields = '__all__'
         widgets = {
             'birthday': forms.DateInput(attrs={'type': 'date'})
         }
@@ -42,3 +41,10 @@ class StudentsFilter(FilterSet):
             "second_name": ["exact", 'startswith'],
             "group": ['exact']
         }
+
+
+class StudentUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Students
+        fields = "__all__"
+        exclude = ['enroll_date', 'graduate_date']

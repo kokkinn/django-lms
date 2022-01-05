@@ -5,7 +5,7 @@ from django.db import models
 from core.models import Person
 # from groups.models import Groups
 
-from teachers.validators import phone_number_validator
+# from teachers.validators import phone_number_validator
 
 
 class Teacher(Person):

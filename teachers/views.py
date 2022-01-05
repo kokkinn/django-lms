@@ -53,4 +53,4 @@ def delete_teacher(request, pk):
         teacher.delete()
         return HttpResponseRedirect(reverse('teachers:list'))
 
-    return render(request, 'teachers/delete.html', {"teacher": teacher})
+    return render(request, 'teachers/groups_confirm_delete.html', {"teacher": teacher})
