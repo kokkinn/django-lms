@@ -29,7 +29,8 @@ class Teacher(Person):
     @classmethod
     def _generate(cls):
         teacher = super()._generate()
-        teacher.salary = random.randint(10000, 99999)
+        teacher.salary = random.randint(700, 5000)
+        teacher.specialization = random.choice(['Python', 'Java', 'JS', 'C/C++', 'Rust', 'PHP', "UI/UX"])
         teacher.save()
 
 

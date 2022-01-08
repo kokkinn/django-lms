@@ -7,13 +7,21 @@ from django_filters import FilterSet
 from .models import Students
 
 
-class StudentCreateForm(forms.ModelForm):
+class StudentBaseForm(forms.ModelForm):
     class Meta:
         model = Students
-        fields = '__all__'
+        fields = "__all__"
         widgets = {
-            'birthday': forms.DateInput(attrs={'type': 'date'})
+            'birthday': forms.DateInput(attrs={'type': 'date'}),
+            'enroll_date': forms.DateInput(attrs={'type': 'date'})
         }
+
+
+class StudentCreateForm(StudentBaseForm):
+    class Meta:
+        model = Students
+        fields = "__all__"
+        exclude = ['enroll_date', 'graduate_date', "age"]
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
@@ -38,13 +46,12 @@ class StudentsFilter(FilterSet):
         fields = {
             "age": ["lt", "gt"],
             "first_name": ["exact"],
-            "second_name": ["exact", 'startswith'],
+            "second_name": ["exact"],
             "group": ['exact']
         }
 
 
-class StudentUpdateForm(forms.ModelForm):
+class StudentUpdateForm(StudentBaseForm):
     class Meta:
         model = Students
-        fields = "__all__"
         exclude = ['enroll_date', 'graduate_date']

@@ -12,6 +12,13 @@ class GroupListView(ListView):
     model = Groups
     template_name = "groups/list.html"
 
+    def get_queryset(self):
+        filter_groups = GroupsFilter(
+            data=self.request.GET,
+            queryset=self.model.objects.all().select_related("headman", "course"))
+
+        return filter_groups
+
 
 class GroupCreateView(CreateView):
     model = Groups
@@ -47,7 +54,9 @@ class GroupUpdateView(UpdateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        form.instance.headman = Students.objects.get(id=form.cleaned_data["headman_field"])
+        pk = form.cleaned_data["headman_field"]
+        if pk:
+            form.instance.headman = Students.objects.get(id=form.cleaned_data["headman_field"])
         form.instance.save()
         return response
 

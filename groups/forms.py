@@ -12,27 +12,27 @@ class GroupBaseForm(forms.ModelForm):
         fields = "__all__"
 
 
-class GroupCreateForm(GroupBaseForm):
-    class Meta(GroupBaseForm.Meta):
-        exclude = ["start_date", "headman"]
-
-
 class GroupsFilter(FilterSet):
     class Meta:
         model = Groups
         fields = [
             'name',
             'start_date',
-            'end_date',
             'teachers',
-            'students'
+            "headman"
         ]
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'})
+        }
 
 
-# class GroupUpdateForm(GroupsFilter):
-#     class Meta(GroupsFilter.Meta):
-#         fields = "__all__"
-#         # exclude = ['start_date']
+class GroupCreateForm(GroupBaseForm):
+    class Meta(GroupBaseForm.Meta):
+        exclude = ["headman"]
+        widgets = {
+            "start_date": forms.DateInput(attrs={"type": "date"}),
+        }
+
 
 class GroupUpdateForm(GroupBaseForm):
     def __init__(self, *args, **kwargs):
@@ -44,5 +44,4 @@ class GroupUpdateForm(GroupBaseForm):
         )
 
     class Meta(GroupBaseForm.Meta):
-        # fields = "__all__"
         exclude = ["start_date", "headman"]
