@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # 'debug_toolbar',
     'debug_toolbar.apps.DebugToolbarConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,7 +44,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_filters',
     "core.apps.CoreConfig",
-    "courses"
+    "courses",
+    "accounts"
 ]
 
 MIDDLEWARE = [
@@ -157,3 +157,5 @@ mimetypes.add_type("application/javascript", ".js", True)
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }
+
+EMAIL_PORT = 1025
