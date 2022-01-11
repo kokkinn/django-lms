@@ -9,8 +9,10 @@
             <th>Graduate date </th>
             <th>Group</th>
             <th>Headman</th>
+            {% if user.is_authenticated %}
             <th><i class="bi bi-pencil-square"></i></th>
             <th><i class="bi bi-trash"></i></th>
+            {% endif %}
         </tr>
 
 
@@ -25,8 +27,10 @@
             <td>{{student.graduate_date}}</td>
             <td>{% if student.group is not None %}{{ student.group }} {% endif %}</td>
             <td>{% if student.headman_group %}<i class="bi bi-check-lg"></i>{% endif %}</td>
+            {% if user.is_authenticated %}
             <td><a href="{% url 'students:update' student.id %}">Edit</a></td>
             <td><a href="{% url 'students:delete' student.id %}">Delete</a></td>
+            {% endif %}
         </tr>
     {% endfor %}
     </table>

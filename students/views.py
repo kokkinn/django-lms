@@ -1,8 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import UpdateView, ListView, DeleteView, CreateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from core.views import UpdateBaseView
 from students.models import Students
 
@@ -28,7 +29,7 @@ class StudentCreateView(CreateView):
     template_name = 'students/create.html'
 
 
-class StudentUpdateView(UpdateView):
+class StudentUpdateView(LoginRequiredMixin, UpdateView):
     model = Students
     form_class = StudentUpdateForm
     success_url = reverse_lazy('students:list')
@@ -38,6 +39,7 @@ class StudentUpdateView(UpdateView):
 class StudentDeleteView(DeleteView):
     model = Students
     success_url = reverse_lazy('students:list')
+
 
 # def get_students(request):
 #     students = Students.objects.all().select_related("group", "headman_group")
@@ -80,6 +82,8 @@ class StudentDeleteView(DeleteView):
 #     )
 #
 #
+#
+# @login_required
 # def delete_student(request, pk):
 #     student = get_object_or_404(Students, id=pk)
 #     if request.method == "POST":
@@ -87,9 +91,9 @@ class StudentDeleteView(DeleteView):
 #         return HttpResponseRedirect(reverse('students:list'))
 #
 #     return render(request, 'students/groups_confirm_delete.html', {"student": student})
-#
-#
-# "Ниже реализация Class Based View вручную"
+# #
+# #
+# # "Ниже реализация Class Based View вручную"
 #
 #
 # class UpdateStudentView(UpdateBaseView):
