@@ -1,0 +1,29 @@
+from django.contrib import admin
+from .models import Students
+
+
+class StudentsAdmin(admin.ModelAdmin):
+    list_display = [
+        "first_name",
+        "second_name",
+        "birthday",
+        "group"
+    ]
+
+    list_display_links = list_display
+    list_per_page = 10
+    search_fields = ["first_name", "second_name"]
+    list_filter = ("group",)
+
+    fields = [
+        ("first_name", "second_name"),
+        ("birthday", "age"),
+        "phone_number",
+        ("enroll_date", "graduate_date"),
+        "group"
+    ]
+
+    readonly_fields = ["age"]
+
+
+admin.site.register(Students, StudentsAdmin)

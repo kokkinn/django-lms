@@ -11,7 +11,7 @@ from .forms import StudentCreateForm, StudentUpdateForm
 from .forms import StudentsFilter
 
 
-class StudentsListView(ListView):
+class StudentsListView(LoginRequiredMixin, ListView):
     model = Students
     template_name = "students/list.html"
 
@@ -22,7 +22,7 @@ class StudentsListView(ListView):
         return filter_students
 
 
-class StudentCreateView(CreateView):
+class StudentCreateView(LoginRequiredMixin, CreateView):
     model = Students
     form_class = StudentCreateForm
     success_url = reverse_lazy("students:list")
@@ -36,7 +36,7 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'students/update.html'
 
 
-class StudentDeleteView(DeleteView):
+class StudentDeleteView(LoginRequiredMixin, DeleteView):
     model = Students
     success_url = reverse_lazy('students:list')
 
