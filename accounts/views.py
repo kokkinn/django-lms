@@ -7,6 +7,7 @@ from django.views.generic import CreateView
 from django.views.generic.edit import ProcessFormView
 
 from accounts.forms import AccountRegistrationForm, AccountUpdateForm, AccountProfileUpdate
+from django.contrib import messages
 
 
 class AccountRegistrationView(CreateView):
@@ -19,11 +20,21 @@ class AccountRegistrationView(CreateView):
 class AccountLoginView(LoginView):
     template_name = "accounts/login.html"
 
+    # messages.success(request, "")
+
     def get_redirect_url(self):
         next_value = self.request.GET.get("next")
         if next_value:
             return next_value
         return reverse("index")
+
+    def form_valid(self, form):
+
+        result = super().form_valid(form)
+        messages.success(self.request,
+                         f"User {self.request.user} has successfully logged in")
+
+        return result
 
 
 class AccountLogoutView(LogoutView):
