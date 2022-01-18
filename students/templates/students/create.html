@@ -9,9 +9,9 @@
 {% block content %}
     <form method="post">
         {% csrf_token %}
-        {{form | crispy}}
+        {{ form | crispy }}
         <input class="btn btn-outline-success" type="submit" value="Create">
-        <a class="btn btn-outline-primary" href="{% url 'students:list' %}">Cancel</a>&nbsp;&nbsp;
+        <a class="btn btn-outline-primary" href="{% url 'students:list' %}">Cancel</a>
     </form>
 
 {% endblock %}
