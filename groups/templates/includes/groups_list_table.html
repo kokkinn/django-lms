@@ -5,18 +5,16 @@
             <th></th>
             <th>Name</th>
             <th>Start date</th>
-            <th>End date</th>
-<!--            <th>Teachers</th>-->
+            <th>Headman</th>
             <th><i class="bi bi-pencil-square"></i></th>
             <th><i class="bi bi-trash"></i></th>
         </tr>
-    {% for group in object_list %}
+    {% for group in list_object.qs %}
         <tr>
             <td>{{forloop.counter}}</td>
             <td>{{group.name}}</td>
             <td>{{group.start_date}}</td>
-            <td>{{group.end_date}}</td>
-<!--            <td>{% for teacher in group.teachers.all %} {{ teacher }}{% endfor %}</td>-->
+            <td>{% if group.headman is not None %}{{ group.headman }}{% endif %}</td>
             <td><a href="{% url 'groups:update' group.id %}">Edit</a></td>
             <td><a href="{% url 'groups:delete' group.id %}">Delete</a></td>
         </tr>

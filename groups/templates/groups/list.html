@@ -15,7 +15,7 @@
     <p><strong>Number of groups: {{ filter_groups.qs.count }}</strong></p>
     <br>
 
-{% with list_object=filter_groups.qs %}
+{% with list_object=object_list %}
     {% include "includes/groups_list_table.html" %}
 {% endwith %}
 
