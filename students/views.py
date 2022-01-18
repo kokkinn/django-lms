@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
@@ -12,14 +13,22 @@ from .forms import StudentsFilter
 
 
 class StudentsListView(LoginRequiredMixin, ListView):
+    paginate_by = 10
     model = Students
     template_name = "students/list.html"
 
-    def get_queryset(self):
-        filter_students = StudentsFilter(
+    def get_filter(self):
+        return StudentsFilter(
             data=self.request.GET,
             queryset=self.model.objects.all().select_related("group", "headman_group"))
-        return filter_students
+
+    def get_queryset(self):
+        return self.get_filter().qs
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["filter_form"] = self.get_filter().form
+        return context
 
 
 class StudentCreateView(LoginRequiredMixin, CreateView):
@@ -28,6 +37,11 @@ class StudentCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("students:list")
     template_name = 'students/create.html'
 
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        messages.success(self.request, f"Student was successfully created")
+        return result
+
 
 class StudentUpdateView(LoginRequiredMixin, UpdateView):
     model = Students
@@ -35,11 +49,21 @@ class StudentUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('students:list')
     template_name = 'students/update.html'
 
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        messages.success(self.request, f"Student {self.get_object()} was successfully updated")
+        return result
+
 
 class StudentDeleteView(LoginRequiredMixin, DeleteView):
     model = Students
     success_url = reverse_lazy('students:list')
 
+    def form_valid(self, form):
+        student = self.get_object()
+        result = super().form_valid(form)
+        messages.success(self.request, f"Student {student} was successfully deleted")
+        return result
 
 # def get_students(request):
 #     students = Students.objects.all().select_related("group", "headman_group")

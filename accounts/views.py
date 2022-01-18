@@ -20,8 +20,6 @@ class AccountRegistrationView(CreateView):
 class AccountLoginView(LoginView):
     template_name = "accounts/login.html"
 
-    # messages.success(request, "")
-
     def get_redirect_url(self):
         next_value = self.request.GET.get("next")
         if next_value:
@@ -29,11 +27,8 @@ class AccountLoginView(LoginView):
         return reverse("index")
 
     def form_valid(self, form):
-
         result = super().form_valid(form)
-        messages.success(self.request,
-                         f"User {self.request.user} has successfully logged in")
-
+        messages.success(self.request, f"User {self.request.user} has successfully logged in")
         return result
 
 
@@ -61,7 +56,7 @@ class AccountUpdateView(ProcessFormView):
         profile = self.request.user.profile
 
         user_form = AccountUpdateForm(instance=user, data=request.POST)
-        profile_form = AccountProfileUpdate(instance=profile, data=request.POST)
+        profile_form = AccountProfileUpdate(instance=profile, data=request.POST, files=request.FILES)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()

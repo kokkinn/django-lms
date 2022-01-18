@@ -16,15 +16,16 @@ class StudentsInlineTable(admin.TabularInline):
     # show_change_link = True
 
 
-# class TeachersInlineTable(admin.TabularInline):
-#     model = Teacher
-#     fields = [
-#         "first_name", "second_name", 'phone_number', "specialization", "salary"
-#     ]
-#
-#     extra = 0
-#     # readonly_fields = fields
-#     # show_change_link = True
+class TeachersInlineTable(admin.TabularInline):
+    model = Groups.teachers.through
+
+    # fields = [
+    #     "first_name", "second_name", 'phone_number', "specialization", "salary"
+    # ]
+
+    # extra = 0
+    # readonly_fields = fields
+    # show_change_link = True
 
 
 class GroupsAdmin(admin.ModelAdmin):
@@ -36,7 +37,7 @@ class GroupsAdmin(admin.ModelAdmin):
         "name", "start_date", 'headman', "teachers",
     ]
 
-    inlines = [StudentsInlineTable, ]
+    inlines = [StudentsInlineTable, TeachersInlineTable]
 
 
 admin.site.register(Groups, GroupsAdmin)

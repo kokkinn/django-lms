@@ -18,7 +18,7 @@
 
     {% for student in list_object %}
         <tr>
-            <td>{{forloop.counter}}</td>
+            <td>{{forloop.counter0|add:page_obj.start_index }}</td>
             <td>{{student.first_name}}</td>
             <td>{{student.second_name}}</td>
             <td>{{student.age}}</td>
