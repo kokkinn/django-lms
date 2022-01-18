@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9 (django-lms)" project-jdk-type="Python SDK" />
+=======
+>>>>>>> 3a6aa71 (App Courses was added, 1to1 field was added to model Course (linked to a group))
   <component name="PyCharmProfessionalAdvertiser">
     <option name="shown" value="true" />
   </component>

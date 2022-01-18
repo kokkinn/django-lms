@@ -11,10 +11,10 @@
     {% include "includes/teachers_search_accordion.html" %}
 
     <br>
-    <p><strong>Number of teachers: {{ filter_teachers.qs.count }}</strong></p>
+    <p><strong>Number of teachers: {{ object_list.qs.count }}</strong></p>
     <br>
 
-    {% with list_object=filter_teachers.qs %}
+    {% with list_object=object_list.qs %}
         {% include "includes/teachers_list_table.html" %}
     {% endwith %}
 

@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(max_length=50, validators=[django.core.validators.MinLengthValidator(2)])),
                 ('second_name', models.CharField(max_length=50, validators=[django.core.validators.MinLengthValidator(2)])),
                 ('age', models.IntegerField()),
-                ('phone_number', models.CharField(max_length=13, validators=[core.validators.phone_number_validator])),
+                ('phone_number', models.CharField(max_length=13)),
                 ('birthday', models.DateField(default=datetime.date.today, validators=[core.validators.AdultValidator(29)])),
                 ('enroll_date', models.DateField(default=datetime.date.today)),
                 ('graduate_date', models.DateField(default=datetime.date.today)),

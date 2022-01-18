@@ -5,7 +5,7 @@ from django.db import models
 from core.models import Person
 # from groups.models import Groups
 
-from teachers.validators import phone_number_validator
+# from teachers.validators import phone_number_validator
 
 
 class Teacher(Person):
@@ -29,7 +29,8 @@ class Teacher(Person):
     @classmethod
     def _generate(cls):
         teacher = super()._generate()
-        teacher.salary = random.randint(10000, 99999)
+        teacher.salary = random.randint(700, 5000)
+        teacher.specialization = random.choice(['Python', 'Java', 'JS', 'C/C++', 'Rust', 'PHP', "UI/UX"])
         teacher.save()
 
 

@@ -1,16 +1,33 @@
+from django.forms import ChoiceField, MultipleChoiceField
+
 from core.normalizators import normalize_phone
 
 from django import forms
 
 from django_filters import FilterSet
 
+
 from .models import Teacher
 
 
-class TeacherCreateForm(forms.ModelForm):
+class TeacherBaseForm(forms.ModelForm):
     class Meta:
         model = Teacher
-        fields = "__all__"
+        fields = '__all__'
+
+
+class TeacherCreateForm(TeacherBaseForm):
+    def __init__(self, *args, **kwargs):
+        from groups.models import Groups
+        super().__init__(*args, **kwargs)
+        self.fields["group_field"] = MultipleChoiceField(
+            choices=[(gr.id, str(gr)) for gr in Groups.objects.all()],
+            label="Groups",
+            required=False
+        )
+
+    # class Meta:
+    #     exclude =
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
@@ -38,3 +55,11 @@ class TeachersFilter(FilterSet):
             "birthday": ["exact"],
             # "group": ["exact"]
         }
+
+
+class TeacherUpdateForm(TeacherBaseForm):
+
+    class Meta:
+        model = Teacher
+        fields = "__all__"
+        # exclude = ['enroll_date', 'graduate_date']
