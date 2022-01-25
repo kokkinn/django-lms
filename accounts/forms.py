@@ -18,12 +18,7 @@ class AccountUpdateForm(UserChangeForm):
     password = None
 
     class Meta(UserCreationForm.Meta):
-        fields = [
-            "first_name",
-            "last_name",
-            "email",
-
-        ]
+        fields = ["first_name", "last_name", "email"]
 
 
 class AccountProfileUpdate(forms.ModelForm):

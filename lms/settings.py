@@ -45,7 +45,11 @@ INSTALLED_APPS = [
     'django_filters',
     "core.apps.CoreConfig",
     "courses",
-    "accounts"
+    "accounts",
+
+    "django.contrib.sites",
+    "django.contrib.flatpages",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -57,7 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "core.middlewares.SimpleMiddleWare"
+    "core.middlewares.SimpleMiddleWare",
+    "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware"
 ]
 
 ROOT_URLCONF = 'lms.urls'
@@ -73,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "core.context_processors.get_params",
             ],
         },
     },
@@ -129,6 +135,7 @@ STATIC_ROOT = BASE_DIR / "static"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -164,3 +171,6 @@ DEBUG_TOOLBAR_CONFIG = {
 
 EMAIL_PORT = 1025
 
+SITE_ID = 1
+
+CKEDITOR_UPLOAD_PATH = "uploads/"

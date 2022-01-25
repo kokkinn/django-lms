@@ -24,8 +24,6 @@ from django.urls import include, path
 
 from django.contrib import admin
 
-
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', index, name='index'),
@@ -35,8 +33,10 @@ urlpatterns = [
     path('courses/', include('courses.urls')),
     path('accounts/', include("accounts.urls")),
     path('accounts/', include("django.contrib.auth.urls")),
-    path('__debug__/', include(debug_toolbar.urls))
+    path('__debug__/', include(debug_toolbar.urls)),
+    path("ckeditor", include("ckeditor_uploader.urls")),
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
